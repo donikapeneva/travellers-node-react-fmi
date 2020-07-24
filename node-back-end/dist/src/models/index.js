@@ -1,0 +1,9 @@
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+const databaseSchema = {};
+databaseSchema.mongoose = mongoose;
+databaseSchema.user = require('./user.model');
+databaseSchema.role = require('./role.model');
+databaseSchema.ROLES = ['user', 'admin', 'moderator'];
+module.exports = databaseSchema;
+//# sourceMappingURL=index.js.map
