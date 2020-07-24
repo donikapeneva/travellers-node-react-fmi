@@ -126,21 +126,21 @@ export class Server {
         );
 
         this.app.get(
-            '/user/:username',
+            '/users/:username',
             AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.userController.getUserInfo(req, res)
         );
 
         this.app.put(
-            '/user/:userId',
+            '/users/:userId',
             AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.userController.updateUser(req, res)
         );
 
         this.app.delete(
-            '/user/:userId',
+            '/users/:userId',
             AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.userController.deleteUser(req, res)
@@ -163,21 +163,21 @@ export class Server {
         );
 
         this.app.get(
-            '/trip/:tripId',
+            '/trips/:tripId',
             // We do not need authentication. All user should view the trips.
             (req: Request, res: Response): void =>
                 this.tripController.getTripInfo(req, res)
         );
 
         this.app.put(
-            '/trip/:tripId',
+            '/trips/:tripId',
             AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.tripController.updateTrip(req, res)
         );
 
         this.app.delete(
-            '/trip/:tripId',
+            '/trips/:tripId',
             AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.tripController.deleteTrip(req, res)
@@ -200,14 +200,14 @@ export class Server {
         );
 
         this.app.put(
-            '/tip/:tipId',
+            '/tips/:tipId',
             AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.tipController.updateTip(req, res)
         );
 
         this.app.delete(
-            '/tip/:tipId/:tripId',
+            '/tips/:tipId/:tripId',
             AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.tipController.deleteTip(req, res)
@@ -230,14 +230,14 @@ export class Server {
         );
 
         this.app.get(
-            '/image/:tripId',
+            '/images/:tripId',
             // We do not need authentication. All user should view the trips.
             (req: Request, res: Response): void =>
                 this.imageController.getImage(req, res)
         );
 
         this.app.delete(
-            '/image/:tripId',
+            '/images/:tripId',
             AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.imageController.deleteImage(req, res)

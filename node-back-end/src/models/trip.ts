@@ -5,7 +5,7 @@ export interface ITrip {
     name: string;
     userId: string;
     city: string;
-    coutry: string;
+    country: string;
     time: string;
     tips: ITip[];
     lastUpdated: string;
