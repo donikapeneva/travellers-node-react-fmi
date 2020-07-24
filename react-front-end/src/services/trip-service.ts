@@ -7,7 +7,7 @@ class TripService implements ITripService {
   public async getTrip(tripId: string): Promise<ITrip> {
       const tripResponse = await Axios.get(`${BACKEND_URL}/trips/${tripId}`);
 
-      return tripResponse.data;
+      return tripResponse.data.trip;
 
 
   }

@@ -20,6 +20,8 @@ import {tripService} from '../../services/trip-service';
 import {imageService} from "../../services/image-service";
 import {IImage} from '../../data/i-image';
 import {testImage} from "../shared/test-image";
+import {IUser} from "../../data/i-user";
+import {ICity} from "../../data/i-city";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,38 +64,25 @@ export const TripCardComponent: React.SFC<ITripCardComponentProps> = (props) => 
         }
     };
 
-
     const [tripCoverImage, setCoverImage] = React.useState(coverImage);
     // component did mount
     React.useEffect(() => {
         async function getCoverImage() {
-            let image = await imageService.getCoverByTripId(props.trip.id)
-                .then((result:IImage) => {
-                    if (image != null && result.sourceBase64 != null) {
-                        // image = {...image, sourceBase64 : testImage};
-                        setCoverImage({image : result});
+            let image = await imageService.getCoverByTripId(props.trip._id)
+                .then(image => {
+                    if (image != null && image.sourceBase64 != null) {
+                        setCoverImage({image});
                     }
-                }).catch(() => {
+                }).catch(() => {});
 
-                });
-            // console.log(image);
-            // if (image != null && image.sourceBase64 != null) {
-            //     // image = {...image, sourceBase64 : testImage};
-            //     setCoverImage({image});
-            // }
-            // // setCoverImage({ image });
-            console.log("<<<<<<<<<<<<<< in cards");
-            console.log(props.trip);
+
         }
 
         getCoverImage();
     }, []);
 
     const [, updateState] = React.useState();
-
-
-
-
+    const forceUpdate = React.useCallback(() => updateState({}), []);
 
     return (
         <Card className={classes.root}>
@@ -103,7 +92,7 @@ export const TripCardComponent: React.SFC<ITripCardComponentProps> = (props) => 
                         JJ
                     </Avatar>
                 }
-                title={props.trip.id}
+                title={props.trip.name}
                 subheader={`${props.trip.city} ${props.trip.time}`}
             />
             {tripCoverImage && tripCoverImage.image && <CardMedia
@@ -129,14 +118,14 @@ export const TripCardComponent: React.SFC<ITripCardComponentProps> = (props) => 
                 <IconButton
                     aria-label="view"
                     onClick={() =>
-                        routingHistory.push('/trip', {trip: props.trip})
+                        routingHistory.push('/trip', {tripId: props.trip._id})
                     }
                 >
                     <VisibilityIcon/>
                 </IconButton>
                 <IconButton
                     aria-label="delete"
-                    onClick={async () => await deleteTrip(props.trip.id.toString())}
+                    onClick={async () => await deleteTrip(props.trip._id)}
                 >
                     <DeleteOutlinedIcon/>
                 </IconButton>
@@ -152,5 +141,4 @@ export interface IStateImage {
 
 export interface ITripCardComponentProps {
     trip: ITrip;
-
 }

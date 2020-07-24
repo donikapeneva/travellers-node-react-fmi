@@ -63,11 +63,14 @@ const useStyles = makeStyles((theme) => ({
 
 const createTrip = async (trip: Partial<ITrip>): Promise<void> => {
 
-    routingHistory.push('/trips');
-    const tripId = await tripService.createTrip(trip);
-    console.log("NEW TRIP : " + tripId);
+    // routingHistory.push('/trips');
+    await tripService.createTrip(trip)
+        .then((tripId) => {
+            routingHistory.push('/trip', tripId);
+        })
+        .catch();
 
-    routingHistory.push('/trip', tripId);
+
 };
 
 
@@ -83,8 +86,9 @@ export const CreateTripComponent = (props: ICreateTripComponentProps) => {
     const initialTrip: Partial<ITrip> = {
         name: undefined,
         //todo DELETE
-        userId: 1,
-        cityId: undefined,
+        userId: '1',
+        city: undefined,
+        countryName: undefined,
         time: undefined,
         tip: undefined,
     };
@@ -98,7 +102,6 @@ export const CreateTripComponent = (props: ICreateTripComponentProps) => {
         () => {
             if (!!country) {
                 setCities(country.cities);
-
             }
         },
         [country]
@@ -143,10 +146,8 @@ export const CreateTripComponent = (props: ICreateTripComponentProps) => {
                             <TextField {...params} label="Country" variant="outlined"/>
                         )}
                         onChange={(event: object, value: any, reason: string) => {
-                            // console.log(value);
                             setCountry(value);
-
-                            // setTrip({...trip, city: value});
+                            setTrip({...trip, countryName: value.name});
                         }}
                     />
                     <Autocomplete
@@ -161,10 +162,7 @@ export const CreateTripComponent = (props: ICreateTripComponentProps) => {
                             <TextField {...params} label="City" variant="outlined"/>
                         )}
                         onChange={(event: object, value: any, reason: string) => {
-                            console.log(value);
-
-
-                            setTrip({...trip, cityId: value});
+                            setTrip({...trip, city: value});
                         }}
                     />
 

@@ -40,7 +40,7 @@ class ImageService implements IImageService {
   public async getCoverByTripId(tripId: string): Promise<IImage> {
     const response = await Axios.get(`${BACKEND_URL}/images/${tripId}/cover`);
 
-    return response.data;
+    return response.data.image;
 
   }
 }

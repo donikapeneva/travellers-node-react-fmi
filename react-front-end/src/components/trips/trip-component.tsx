@@ -108,11 +108,8 @@ export const TripComponent = () => {
 
         async function getPlaces() {
             const countries = await placeService.getAllCountries();
-            // const cities = await extractCities(countries);
-            // console.log(cities);
             setPlaces({
                 countries: countries,
-            //     cities: cities
             });
         }
 
@@ -124,7 +121,7 @@ export const TripComponent = () => {
     console.log(trip);
     const currentTripComponent: JSX.Element = trip != undefined ? (
         modifyTrip ? (
-            <ModifyTripComponent trip={trip} cities={undefined}/>
+            <ModifyTripComponent trip={trip} countries={places.countries}/>
         ) : (
             <ViewTripComponent trip={trip}/>
         )

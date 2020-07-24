@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        textAlign: 'center',
     },
     avatar: {
         margin: theme.spacing(1),
@@ -61,6 +62,9 @@ const useStyles = makeStyles((theme) => ({
     },
     smallTextSpace: {
         margin: theme.spacing(2),
+    },
+    rowOrder: {
+        flexDirection: 'row',
     }
 }));
 
@@ -68,10 +72,9 @@ export const ViewTripComponent = (props: IViewTripComponent) => {
     const classes = useStyles();
 
     if (!props.trip) {
-        return null;
+        routingHistory.push('/trips');
     }
 
-    console.log(props.trip);
 
     return (
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -85,17 +88,27 @@ export const ViewTripComponent = (props: IViewTripComponent) => {
                 <Typography component="h1" variant="h4" className={classes.textSpace}>
                     {props.trip.name}
                 </Typography>
-                <Typography component="h3" variant="h6" className={classes.smallTextSpace}>
-                    {props.trip.city} {' '}
-                    {props.trip.time}
-                </Typography>
-                <Typography component="h3" variant="h6" className={classes.smallTextSpace}>
-                    {props.trip.tip}
-                </Typography>
+                <Paper  elevation={1}>
+                    <Typography component="h3" variant="h6" className={classes.smallTextSpace}>
+                        {props.trip.city}
+                        {/*{", "}{props.trip.countryName}*/}
+                    </Typography>
+                    <Typography component="h3" variant="h6" className={classes.smallTextSpace}>
+                        {props.trip.time}
+                    </Typography>
+
+                </Paper>
+
+                {/*<Paper elevation={1}>*/}
+                    <Typography component="h3" variant="h6" className={classes.smallTextSpace}>
+                        {props.trip.tip}
+                    </Typography>
+                {/*</Paper>*/}
             </div>
+
             <ModifyTripButton
                 onClick={() => {
-                    routingHistory.push('/trip', {tripId: props.trip, modify: true});
+                    routingHistory.push('/trip', {tripId: props.trip._id, modify: true});
                 }}
             />
         </Grid>
