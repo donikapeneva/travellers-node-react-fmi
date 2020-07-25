@@ -45,16 +45,16 @@ export class TripController implements ITripController {
     public async createTrip(request: Request, response: Response): Promise<void> {
         const userId: string = (request as any).userId;
 
-        if (
-            !(await this.authorizationService.verifyRole(userId, [
-                UserRoles.ADMINISTRATOR,
-                UserRoles.USER,
-            ]))
-        ) {
-            response.sendStatus(401);
-
-            return;
-        }
+        // if (
+        //     !(await this.authorizationService.verifyRole(userId, [
+        //         UserRoles.ADMINISTRATOR,
+        //         UserRoles.USER,
+        //     ]))
+        // ) {
+        //     response.sendStatus(401);
+        //
+        //     return;
+        // }
 
         const trip: ITrip = (request.body as unknown) as ITrip;
         console.log(trip);
@@ -69,16 +69,16 @@ export class TripController implements ITripController {
     public async deleteTrip(request: Request, response: Response): Promise<void> {
         const userId: string = (request as any).userId;
 
-        if (
-            !(await this.authorizationService.verifyRole(userId, [
-                UserRoles.ADMINISTRATOR,
-                UserRoles.USER,
-            ]))
-        ) {
-            response.sendStatus(401);
-
-            return;
-        }
+        // if (
+        //     !(await this.authorizationService.verifyRole(userId, [
+        //         UserRoles.ADMINISTRATOR,
+        //         UserRoles.USER,
+        //     ]))
+        // ) {
+        //     response.sendStatus(401);
+        //
+        //     return;
+        // }
 
         const tripId = request.params['tripId'];
 

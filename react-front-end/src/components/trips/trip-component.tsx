@@ -95,11 +95,12 @@ export const TripComponent = () => {
         getTrip();
 
         async function getImages() {
-            if (!trip) {
+            if (!tripId) {
                 return;
             }
 
             const images = await imageService.getByTripId(tripId);
+            console.log(images);
             setImages({images});
         }
 
@@ -131,7 +132,7 @@ export const TripComponent = () => {
 
 
     const uploadImageHandler = async (imagesData: Iterable<File>) => {
-        const newImageId = await imageService.upload(imagesData, trip.id);
+        const newImageId = await imageService.upload(imagesData, trip._id);
 
         const newImage = await imageService.getById(newImageId);
 
@@ -139,9 +140,10 @@ export const TripComponent = () => {
     };
 
     const removeImageHandler = async (imageId: string) => {
+        console.log("imageId: " + imageId);
         await imageService.delete(imageId);
         const images = tripImages.images.filter((image) => {
-            image.id! !== Number(imageId);
+            image._id! !== imageId;
         });
         setImages({images: images});
     };

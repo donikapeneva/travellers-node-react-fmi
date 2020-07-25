@@ -36,14 +36,14 @@ export const ImageGridList = (props: IImageComponentProps) => {
       <GridList cellHeight={160} className={classes.gridList} cols={3}>
         {[...props.images].map((image, index) => (
           <GridListTile key={index}>
-            <img src={image.sourceBase64} alt={image.title} />
+            <img src={image.source} alt={image.title} />
             <GridListTileBar
               title={image.title}
               actionIcon={
                 <IconButton
                   aria-label={`info about ${image.title}`}
                   className={classes.deleteIcon}
-                  onClick={() => props.onRemoveImage(image.id!.toString())}
+                  onClick={() => props.onRemoveImage(image._id)}
                 >
                   <DeleteOutlineIcon />
                 </IconButton>

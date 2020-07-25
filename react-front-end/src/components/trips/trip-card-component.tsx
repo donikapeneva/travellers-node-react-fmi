@@ -57,10 +57,10 @@ export const TripCardComponent: React.SFC<ITripCardComponentProps> = (props) => 
     const classes = useStyles();
     const coverImage: IStateImage = {
         image: {
-            id: undefined,
+            _id: undefined,
             adventureId: undefined,
             title: '',
-            sourceBase64: testImage
+            source: testImage
         }
     };
 
@@ -70,7 +70,7 @@ export const TripCardComponent: React.SFC<ITripCardComponentProps> = (props) => 
         async function getCoverImage() {
             let image = await imageService.getCoverByTripId(props.trip._id)
                 .then(image => {
-                    if (image != null && image.sourceBase64 != null) {
+                    if (image != null && image.source != null) {
                         setCoverImage({image});
                     }
                 }).catch(() => {});
@@ -99,7 +99,7 @@ export const TripCardComponent: React.SFC<ITripCardComponentProps> = (props) => 
                 component="img"
                 alt="Contemplative Reptile"
                 height="140"
-                src={tripCoverImage.image.sourceBase64}
+                src={tripCoverImage.image.source}
                 title={props.trip.city}
             />
             }

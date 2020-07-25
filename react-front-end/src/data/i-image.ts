@@ -1,6 +1,6 @@
 export interface IImage {
-  id?: number;
+  _id?: string;
   adventureId: number;
   title: string;
-  sourceBase64: string;
+  source: string;
 }

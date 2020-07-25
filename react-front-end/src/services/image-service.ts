@@ -12,9 +12,10 @@ class ImageService implements IImageService {
       const image: any = {
         title: imageData.name,
         source: imageBase64,
+
       };
 
-      const response = await Axios.post(`${BACKEND_URL}/images/${adventureId}`, image);
+      const response = await Axios.post(`${BACKEND_URL}/images/${adventureId}`, {image, tripId: adventureId});
 
       return response.data.imageId;
     }
@@ -26,7 +27,7 @@ class ImageService implements IImageService {
 
   public async getByTripId(tripId: string): Promise<IImage[]> {
      const response = await Axios.get(`${BACKEND_URL}/images/${tripId}`);
-
+      console.log("CAAAAAAAAAAAAAAALLLED");
      return response.data;
 
   }

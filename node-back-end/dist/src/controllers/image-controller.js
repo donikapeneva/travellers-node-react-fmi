@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImageController = void 0;
-const user_1 = require("../models/user");
 const image_service_1 = require("../services/image-service");
 const authorization_service_1 = require("../services/authorization-service");
 class ImageController {
@@ -31,13 +30,29 @@ class ImageController {
             }
         });
     }
-    getImages(request, response) {
+    getCoverImage(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             // We do not need authrization. Anonymous users can view trips
             const tripId = request.params['tripId'];
             try {
+                const image = yield this.imageService.getCoverImage(tripId);
+                response.status(200).json({ image });
+            }
+            catch (_a) {
+                response.status(200).json({ error: 'Images not found' });
+            }
+        });
+    }
+    getImages(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // We do not need authrization. Anonymous users can view trips
+            const tripId = request.params['tripId'];
+            console.log("GET");
+            console.log(tripId);
+            try {
                 const images = yield this.imageService.getImages(tripId);
-                response.status(200).json({ images });
+                console.log("IMAGES");
+                response.status(200).json(images);
             }
             catch (_a) {
                 response.status(200).json({ error: 'Images not found' });
@@ -47,15 +62,19 @@ class ImageController {
     uploadImage(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const userId = request.userId;
-            if (!(yield this.authorizationService.verifyRole(userId, [
-                user_1.UserRoles.ADMINISTRATOR,
-                user_1.UserRoles.USER,
-            ]))) {
-                response.sendStatus(401);
-                return;
-            }
+            // if (
+            //     !(await this.authorizationService.verifyRole(userId, [
+            //         UserRoles.ADMINISTRATOR,
+            //         UserRoles.USER,
+            //     ]))
+            // ) {
+            //     response.sendStatus(401);
+            //
+            //     return;
+            // }
             const { image, tripId } = request.body;
             try {
+                console.log("tripId in controller: " + tripId);
                 yield this.imageService.uploadImage(tripId, image);
                 response.sendStatus(200);
             }
@@ -67,13 +86,18 @@ class ImageController {
     deleteImage(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const userId = request.userId;
-            if (!(yield this.authorizationService.verifyRole(userId, [
-                user_1.UserRoles.ADMINISTRATOR,
-                user_1.UserRoles.USER,
-            ]))) {
-                response.sendStatus(401);
-                return;
-            }
+            console.log("request.params");
+            console.log(request.params);
+            // if (
+            //     !(await this.authorizationService.verifyRole(userId, [
+            //         UserRoles.ADMINISTRATOR,
+            //         UserRoles.USER,
+            //     ]))
+            // ) {
+            //     response.sendStatus(401);
+            //
+            //     return;
+            // }
             const imageId = request.params['imageId'];
             try {
                 yield this.imageService.deleteImage(imageId);

@@ -27,14 +27,28 @@ export class ImageController implements IImageController {
         }
     }
 
-    public async getImages(request: Request, response: Response): Promise<void> {
+    public async getCoverImage(request: Request, response: Response): Promise<void> {
         // We do not need authrization. Anonymous users can view trips
         const tripId = request.params['tripId'];
 
         try {
-            const images = await this.imageService.getImages(tripId);
+            const image = await this.imageService.getCoverImage(tripId);
 
-            response.status(200).json({images});
+            response.status(200).json({image});
+        } catch {
+            response.status(200).json({error: 'Images not found'});
+        }
+    }
+
+    public async getImages(request: Request, response: Response): Promise<void> {
+        // We do not need authrization. Anonymous users can view trips
+        const tripId = request.params['tripId'];
+        console.log("GET");
+        console.log(tripId);
+        try {
+            const images = await this.imageService.getImages(tripId);
+            console.log("IMAGES");
+            response.status(200).json(images);
         } catch {
             response.status(200).json({error: 'Images not found'});
         }
@@ -46,20 +60,21 @@ export class ImageController implements IImageController {
     ): Promise<void> {
         const userId: string = (request as any).userId;
 
-        if (
-            !(await this.authorizationService.verifyRole(userId, [
-                UserRoles.ADMINISTRATOR,
-                UserRoles.USER,
-            ]))
-        ) {
-            response.sendStatus(401);
-
-            return;
-        }
+        // if (
+        //     !(await this.authorizationService.verifyRole(userId, [
+        //         UserRoles.ADMINISTRATOR,
+        //         UserRoles.USER,
+        //     ]))
+        // ) {
+        //     response.sendStatus(401);
+        //
+        //     return;
+        // }
 
         const {image, tripId} = request.body;
 
         try {
+            console.log("tripId in controller: " + tripId);
             await this.imageService.uploadImage(tripId, image);
 
             response.sendStatus(200);
@@ -73,17 +88,18 @@ export class ImageController implements IImageController {
         response: Response
     ): Promise<void> {
         const userId: string = (request as any).userId;
-
-        if (
-            !(await this.authorizationService.verifyRole(userId, [
-                UserRoles.ADMINISTRATOR,
-                UserRoles.USER,
-            ]))
-        ) {
-            response.sendStatus(401);
-
-            return;
-        }
+        console.log("request.params");
+        console.log(request.params);
+        // if (
+        //     !(await this.authorizationService.verifyRole(userId, [
+        //         UserRoles.ADMINISTRATOR,
+        //         UserRoles.USER,
+        //     ]))
+        // ) {
+        //     response.sendStatus(401);
+        //
+        //     return;
+        // }
 
         const imageId = request.params['imageId'];
 

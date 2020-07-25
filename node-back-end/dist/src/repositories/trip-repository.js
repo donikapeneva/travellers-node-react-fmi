@@ -44,6 +44,14 @@ class TripRepository extends base_repository_1.BaseRepository {
             return !!result.ok;
         });
     }
+    update(id, item) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const trip = yield this.findOneById(id);
+            const result = yield this.collection.updateOne({ _id: new mongodb_1.ObjectId(id) }, { $set: { name: item.name, city: item.city, country: item.country,
+                    time: item.time, tips: item.tips, lastUpdated: item.lastUpdated, isDeleted: item.isDeleted } });
+            return !!result.result.ok && result.result.n > 0;
+        });
+    }
 }
 exports.TripRepository = TripRepository;
 //# sourceMappingURL=trip-repository.js.map

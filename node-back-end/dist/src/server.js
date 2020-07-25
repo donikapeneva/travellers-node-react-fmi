@@ -85,9 +85,9 @@ class Server {
     registerUserApis() {
         this.app.get('/users', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.userController.getUsers(req, res));
         this.app.post('/users', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.userController.createUser(req, res));
-        this.app.get('/user/:username', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.userController.getUserInfo(req, res));
-        this.app.put('/user/:userId', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.userController.updateUser(req, res));
-        this.app.delete('/user/:userId', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.userController.deleteUser(req, res));
+        this.app.get('/users/:username', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.userController.getUserInfo(req, res));
+        this.app.put('/users/:userId', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.userController.updateUser(req, res));
+        this.app.delete('/users/:userId', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.userController.deleteUser(req, res));
     }
     registerTripApis() {
         this.app.get('/trips', 
@@ -96,29 +96,43 @@ class Server {
         this.app.post('/trips', 
         // AuthenticationMiddleware.verifyToken,
         (req, res) => this.tripController.createTrip(req, res));
-        this.app.get('/trip/:tripId', 
+        this.app.get('/trips/:tripId', 
         // We do not need authentication. All user should view the trips.
         (req, res) => this.tripController.getTripInfo(req, res));
-        this.app.put('/trip/:tripId', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.tripController.updateTrip(req, res));
-        this.app.delete('/trip/:tripId', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.tripController.deleteTrip(req, res));
+        this.app.put('/trips/:tripId', 
+        // AuthenticationMiddleware.verifyToken,
+        (req, res) => this.tripController.updateTrip(req, res));
+        this.app.delete('/trips/:tripId', 
+        // AuthenticationMiddleware.verifyToken,
+        (req, res) => this.tripController.deleteTrip(req, res));
     }
     registerTipApis() {
         this.app.get('/tips/:tripId', 
         // We do not need authentication. All user should view the trips.
         (req, res) => this.tipController.getTips(req, res));
-        this.app.post('/tips/:tripId', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.tipController.createTip(req, res));
-        this.app.put('/tip/:tipId', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.tipController.updateTip(req, res));
-        this.app.delete('/tip/:tipId/:tripId', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.tipController.deleteTip(req, res));
+        this.app.post('/tips/:tripId', 
+        // AuthenticationMiddleware.verifyToken,
+        (req, res) => this.tipController.createTip(req, res));
+        this.app.put('/tips/:tipId', 
+        // AuthenticationMiddleware.verifyToken,
+        (req, res) => this.tipController.updateTip(req, res));
+        this.app.delete('/tips/:tipId/:tripId', 
+        // AuthenticationMiddleware.verifyToken,
+        (req, res) => this.tipController.deleteTip(req, res));
     }
     registerImageApis() {
         this.app.get('/images/:tripId', 
         // We do not need authentication. All user should view the trips.
         (req, res) => this.imageController.getImages(req, res));
-        this.app.post('/images/:tripId', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.imageController.uploadImage(req, res));
-        this.app.get('/image/:tripId', 
+        this.app.post('/images/:tripId', 
+        // AuthenticationMiddleware.verifyToken,
+        (req, res) => this.imageController.uploadImage(req, res));
+        this.app.get('/images/:tripId', 
         // We do not need authentication. All user should view the trips.
         (req, res) => this.imageController.getImage(req, res));
-        this.app.delete('/image/:tripId', authentication_middleware_1.AuthenticationMiddleware.verifyToken, (req, res) => this.imageController.deleteImage(req, res));
+        this.app.delete('/images/:imageId', 
+        // AuthenticationMiddleware.verifyToken,
+        (req, res) => this.imageController.deleteImage(req, res));
     }
     registerCountryApis() {
         this.app.get('/countries/', 

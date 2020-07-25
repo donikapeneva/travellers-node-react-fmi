@@ -11,4 +11,6 @@ export class ImageRepository extends BaseRepository<IImage> {
 
         return this.collection.find(query).toArray();
     }
+
+
 }

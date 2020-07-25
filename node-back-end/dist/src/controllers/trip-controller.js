@@ -45,13 +45,16 @@ class TripController {
     createTrip(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const userId = request.userId;
-            if (!(yield this.authorizationService.verifyRole(userId, [
-                user_1.UserRoles.ADMINISTRATOR,
-                user_1.UserRoles.USER,
-            ]))) {
-                response.sendStatus(401);
-                return;
-            }
+            // if (
+            //     !(await this.authorizationService.verifyRole(userId, [
+            //         UserRoles.ADMINISTRATOR,
+            //         UserRoles.USER,
+            //     ]))
+            // ) {
+            //     response.sendStatus(401);
+            //
+            //     return;
+            // }
             const trip = request.body;
             console.log(trip);
             try {
@@ -66,13 +69,16 @@ class TripController {
     deleteTrip(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const userId = request.userId;
-            if (!(yield this.authorizationService.verifyRole(userId, [
-                user_1.UserRoles.ADMINISTRATOR,
-                user_1.UserRoles.USER,
-            ]))) {
-                response.sendStatus(401);
-                return;
-            }
+            // if (
+            //     !(await this.authorizationService.verifyRole(userId, [
+            //         UserRoles.ADMINISTRATOR,
+            //         UserRoles.USER,
+            //     ]))
+            // ) {
+            //     response.sendStatus(401);
+            //
+            //     return;
+            // }
             const tripId = request.params['tripId'];
             try {
                 yield this.tripService.deleteTrip(tripId);

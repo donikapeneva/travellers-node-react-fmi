@@ -20,6 +20,17 @@ class ImageService {
             return yield this.imageRepository.findByImageId(imageId);
         });
     }
+    getCoverImage(imageId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.imageRepository.findAllByTripId(imageId)
+                .then((res) => {
+                if (res.length > 0) {
+                    return res[0];
+                }
+                return undefined;
+            });
+        });
+    }
     getImages(tripId) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.imageRepository.findAllByTripId(tripId);
@@ -27,13 +38,16 @@ class ImageService {
     }
     uploadImage(tripId, image) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("tripId" + tripId);
             image.tripId = tripId;
+            // image.source = image.source.slice(image.source.indexOf(",") + 1 );
             const imageId = yield this.imageRepository.create(image);
             return imageId;
         });
     }
     deleteImage(imageId) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(imageId);
             const isDeleted = yield this.imageRepository.delete(imageId);
             return isDeleted;
         });

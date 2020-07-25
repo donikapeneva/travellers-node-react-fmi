@@ -171,14 +171,14 @@ export class Server {
 
         this.app.put(
             '/trips/:tripId',
-            AuthenticationMiddleware.verifyToken,
+            // AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.tripController.updateTrip(req, res)
         );
 
         this.app.delete(
             '/trips/:tripId',
-            AuthenticationMiddleware.verifyToken,
+            // AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.tripController.deleteTrip(req, res)
         );
@@ -194,21 +194,21 @@ export class Server {
 
         this.app.post(
             '/tips/:tripId',
-            AuthenticationMiddleware.verifyToken,
+            // AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.tipController.createTip(req, res)
         );
 
         this.app.put(
             '/tips/:tipId',
-            AuthenticationMiddleware.verifyToken,
+            // AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.tipController.updateTip(req, res)
         );
 
         this.app.delete(
             '/tips/:tipId/:tripId',
-            AuthenticationMiddleware.verifyToken,
+            // AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.tipController.deleteTip(req, res)
         );
@@ -224,7 +224,7 @@ export class Server {
 
         this.app.post(
             '/images/:tripId',
-            AuthenticationMiddleware.verifyToken,
+            // AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.imageController.uploadImage(req, res)
         );
@@ -237,8 +237,8 @@ export class Server {
         );
 
         this.app.delete(
-            '/images/:tripId',
-            AuthenticationMiddleware.verifyToken,
+            '/images/:imageId',
+            // AuthenticationMiddleware.verifyToken,
             (req: Request, res: Response): void =>
                 this.imageController.deleteImage(req, res)
         );
