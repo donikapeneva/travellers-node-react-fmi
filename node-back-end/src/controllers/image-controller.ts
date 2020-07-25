@@ -116,6 +116,8 @@ export class ImageController implements IImageController {
 export interface IImageController {
     getImage(request: Request, response: Response): void;
 
+    getCoverImage(request: Request, response: Response): void;
+
     getImages(request: Request, response: Response): void;
 
     uploadImage(request: Request, response: Response): void;

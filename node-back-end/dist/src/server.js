@@ -130,6 +130,9 @@ class Server {
         this.app.get('/images/:tripId', 
         // We do not need authentication. All user should view the trips.
         (req, res) => this.imageController.getImage(req, res));
+        this.app.get('/images/:tripId/cover', 
+        // We do not need authentication. All user should view the trips.
+        (req, res) => this.imageController.getCoverImage(req, res));
         this.app.delete('/images/:imageId', 
         // AuthenticationMiddleware.verifyToken,
         (req, res) => this.imageController.deleteImage(req, res));

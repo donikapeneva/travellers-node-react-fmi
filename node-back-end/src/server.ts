@@ -236,6 +236,13 @@ export class Server {
                 this.imageController.getImage(req, res)
         );
 
+        this.app.get(
+            '/images/:tripId/cover',
+            // We do not need authentication. All user should view the trips.
+            (req: Request, res: Response): void =>
+                this.imageController.getCoverImage(req, res)
+        );
+
         this.app.delete(
             '/images/:imageId',
             // AuthenticationMiddleware.verifyToken,
