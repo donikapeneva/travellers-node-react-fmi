@@ -41,4 +41,19 @@ export class TripRepository extends BaseRepository<ITrip> {
 
         return !!result.ok;
     }
+
+    public async update(id: string, item: Partial<ITrip>): Promise<boolean> {
+
+        const trip = await this.findOneById(id);
+
+        const result = await this.collection.updateOne(
+            {_id: new ObjectId(id)},
+
+            {$set: {name: item.name, city: item.city, country: item.country,
+                    time: item.time, tips : item.tips, lastUpdated: item.lastUpdated, isDeleted: item.isDeleted}}
+        );
+
+        return !!result.result.ok && result.result.n > 0;
+
+    }
 }

@@ -1,1 +1,4 @@
-export interface ITip {}
+export interface ITip {
+    id: string;
+    description: string;
+}

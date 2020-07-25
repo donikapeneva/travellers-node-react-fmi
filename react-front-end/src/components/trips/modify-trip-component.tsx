@@ -84,7 +84,10 @@ const updateTrip = async ( tripId: string, trip: Partial<ITrip>): Promise<void> 
         .then(() => {
             routingHistory.push('/trip', tripId);
         })
-        .catch();
+        .catch((err) => {
+            console.log(err);
+            routingHistory.push('/trips');
+        });
 
 };
 
@@ -93,7 +96,7 @@ export const ModifyTripComponent = (props: IModifyTripComponent) => {
 
     const classes = useStyles();
     const [trip, setTrip] = React.useState(props.trip as Partial<ITrip>);
-    const [country, setCountry] = React.useState<ICountry>(undefined);
+    const [country, setCountry] = React.useState<ICountry>(props.trip? props.trip.country: undefined);
     const [cities, setCities] = React.useState<ICity[]>([]);
 
     React.useEffect(
@@ -138,10 +141,10 @@ export const ModifyTripComponent = (props: IModifyTripComponent) => {
                         className={classes.smallTextSpace}
                         id="country"
                         key={"countrySelection"}
-                        value={props.trip.countryName}
+                        // value={country}
                         options={props.countries}
                         getOptionLabel={(option) => {
-                            return option.name;
+                            return option.name ;
                         }}
                         style={{width: 300}}
                         renderInput={(params) => (
@@ -149,7 +152,7 @@ export const ModifyTripComponent = (props: IModifyTripComponent) => {
                         )}
                         onChange={(event: object, value: any, reason: string) => {
                             setCountry(value);
-                            setTrip({...trip, countryName: value.name});
+                            setTrip({...trip, country: value});
                         }}
                     />
 
@@ -157,7 +160,7 @@ export const ModifyTripComponent = (props: IModifyTripComponent) => {
                         className={classes.smallTextSpace}
                         id="combo-box-demo"
                         options={cities}
-                        value={props.trip.city}
+                        // value={props.trip.city }
                         getOptionLabel={(option) => {
                             return option;
                         }}
@@ -178,7 +181,7 @@ export const ModifyTripComponent = (props: IModifyTripComponent) => {
                         id="date"
                         label="Date"
                         type="date"
-                        defaultValue={props.trip.time.split('T')[0]}
+                        defaultValue={props.trip.time? props.trip.time.split('T')[0] : ""}
 
                         InputLabelProps={{
                             shrink: true,

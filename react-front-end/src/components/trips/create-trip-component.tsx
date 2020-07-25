@@ -147,7 +147,7 @@ export const CreateTripComponent = (props: ICreateTripComponentProps) => {
                         )}
                         onChange={(event: object, value: any, reason: string) => {
                             setCountry(value);
-                            setTrip({...trip, countryName: value.name});
+                            setTrip({...trip, country: value});
                         }}
                     />
                     <Autocomplete
