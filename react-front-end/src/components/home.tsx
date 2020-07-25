@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import LocationCityIcon from '@material-ui/icons/LocationCity';
 import InfoIcon from '@material-ui/icons/Info';
 import ChatIcon from '@material-ui/icons/Chat';
+import Map from './map/maps-component';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,7 +48,16 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: 50,
         paddingLeft: 100,
         paddingRight: 100,
-    }
+    },
+    paper2: {
+        margin: theme.spacing(3, 4),
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
 }));
 
 export const openLoginPage = () => {
@@ -75,8 +85,21 @@ export const Home = (props: any) => {
             <HeaderComponent title={'Travellers'}/>
             <Grid container component="main" className={classes.root}>
                 <CssBaseline/>
-                <Grid item xs={12} sm={10} className={classes.image}/>
+
+                <Grid item xs={12} sm={12} md={12}>
+                    <Paper className={classes.paper2}>
+                        <Grid item xs={12} sm={4}>
+                        </Grid>
+                        <Grid item xs={12} sm={5}>
+                            <Map/>
+                        </Grid>
+                        <Grid item xs={12} sm={4}>
+                        </Grid>
+                    </Paper>
+                </Grid>
+                
                 <Grid item xs={12} sm={4}>
+
                     <Paper className={classes.paper}>
                         <IconButton aria-label="Adventure" onClick={openTripsPage}>
                             <Avatar className={classes.avatar}>

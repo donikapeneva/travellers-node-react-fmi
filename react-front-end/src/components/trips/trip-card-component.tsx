@@ -47,9 +47,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const deleteTrip = async (tripId: string) => {
-    await tripService.deleteTrip(tripId);
+    await tripService.deleteTrip(tripId)
+        .then((res) => {
+            window.location.reload();
+            // routingHistory.push('/trips');
+        });
 
-    routingHistory.push('/trips');
 
 };
 
@@ -117,9 +120,8 @@ export const TripCardComponent: React.SFC<ITripCardComponentProps> = (props) => 
                 </IconButton>
                 <IconButton
                     aria-label="view"
-                    onClick={() =>
-                        routingHistory.push('/trip', {tripId: props.trip._id})
-                    }
+                    onClick={(e) => routingHistory.push('/trip', {tripId: props.trip._id})}
+
                 >
                     <VisibilityIcon/>
                 </IconButton>

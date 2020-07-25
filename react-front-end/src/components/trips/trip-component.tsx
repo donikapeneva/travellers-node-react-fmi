@@ -59,6 +59,8 @@ const initialPlaces: IPlace = {
 
 export const TripComponent = () => {
     const classes = useStyles();
+
+
     const locationHistoryState: any = routingHistory.location.state;
 
     const tripId =
@@ -79,7 +81,6 @@ export const TripComponent = () => {
     const [tripImages, setImages] = React.useState(initialImages);
     const [trip, setTrip] = React.useState(undefined);
     const [places, setPlaces] = React.useState(initialPlaces);
-
 
     // component did mount
     React.useEffect(() => {
@@ -119,7 +120,7 @@ export const TripComponent = () => {
 
     }, []);
 
-    console.log(trip);
+
     const currentTripComponent: JSX.Element = trip != undefined ? (
         modifyTrip ? (
             <ModifyTripComponent trip={trip} countries={places.countries}/>

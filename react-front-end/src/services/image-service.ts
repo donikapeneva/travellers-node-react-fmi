@@ -27,7 +27,6 @@ class ImageService implements IImageService {
 
   public async getByTripId(tripId: string): Promise<IImage[]> {
      const response = await Axios.get(`${BACKEND_URL}/images/${tripId}`);
-      console.log("CAAAAAAAAAAAAAAALLLED");
      return response.data;
 
   }

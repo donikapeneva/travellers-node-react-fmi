@@ -67,6 +67,7 @@ const createTrip = async (trip: Partial<ITrip>): Promise<void> => {
     await tripService.createTrip(trip)
         .then((tripId) => {
             routingHistory.push('/trip', tripId);
+            // window.location.reload();
         })
         .catch();
 
